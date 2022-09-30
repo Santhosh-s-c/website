@@ -1,0 +1,820 @@
+body {
+    --font: sans-serif;
+    font-family: var(--font);
+}
+
+textarea,input[type=number],input[type=text],select {
+    padding: 10px;
+    font-family: var(--font);
+    max-width: 20%;
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0 0 5px #5c5757;
+}
+
+textarea,input[type=number],input[type=text] {
+    max-height: 15px;
+}
+
+textarea:focus,input[type=text]:focus,input[type=number]:focus,select:focus {
+    outline: none;
+    box-shadow: 0 0 7px white;
+}
+
+input[type=checkbox] {
+    box-shadow: 0 0 5px #5c5757;
+}
+
+.button,button,input[type=button] {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: white;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: var(--font);
+    text-align: center;
+    user-select: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-style: italic;
+    border: none;
+    background: #03be7a;
+    height: max-content;
+    width: max-content;
+}
+
+.button:hover,button:hover,input[type=button]:hover {
+    opacity: 0.5;
+}
+
+.button:active,button:active,input[type=button]:active {
+    opacity: 0.8;
+}
+
+.background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: radial-gradient(circle at 68% 35%,#142444,#0B172F,#081122,#040913,black 64%);
+    z-index: -1111111111111111111111;
+}
+
+div[step] {
+    display: none;
+}
+
+div.center-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    height: 180px;
+    background: black;
+    color: white;
+    font-weight: 500;
+}
+
+div.center-box svg {
+    height: auto;
+    width: 100%;
+}
+
+div.center-box[step='1'] textarea,div.center-box[step='1'] input[type=text],div.center-box[step='1'] input[type=number],div.center-box[step='1'] select,div.center-box[step='1'] label {
+    margin-left: 5%;
+    margin-top: 1.8%;
+    display: block;
+}
+
+div.center-box button {
+    position: absolute;
+    top: calc(50% - (30px / 2));
+    right: 4%;
+    margin: auto;
+}
+
+div.center-box .barcode-preview {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    padding: 15px;
+    height: max-content;
+    width: max-content;
+    background: white;
+    display: flex;
+    max-width: 400px;
+    max-height: 100px;
+}
+
+div.center-box .barcode-preview .not-valid {
+    font-size: 20px;
+    color: red;
+    font-weight: 900;
+    padding: 10px;
+}
+
+div.center-box::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(45deg,#AB1128,transparent);
+    margin-top: -5px;
+}
+
+div.center-box::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(-45deg,#AB1128,transparent);
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: calc(50% + (180px / 2) - 5px);
+    bottom: 0;
+}
+
+.overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #000000bf;
+    z-index: 9999999999999999999999999999999;
+    cursor: progress;
+}
+
+#loader {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: solid;
+    border-left-color: white;
+    border-top-color: transparent;
+    border-right-color: white;
+    border-bottom-color: transparent;
+    animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.context-menu {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 150px;
+    background: white;
+    z-index: 999999999999999999999;
+    box-shadow: 0 0 3px 0px black;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.context-menu .context-menu-option {
+    display: inline-flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.context-menu .context-menu-option:hover {
+    background: #ededed;
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.excel-sheet {
+    direction: flex;
+    flex-direction: column;
+    height: max-content;
+    width: max-content;
+}
+
+.excel-sheet .excel-row {
+    margin: 10px;
+}
+
+.excel-sheet .excel-row .excel-row-name {
+    display: inline-flex;
+    padding: 10px;
+    background: linear-gradient(white,#77aebf);
+    outline: solid 2px #77aebf;
+    height: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.excel-sheet .excel-row .excel-row-value {
+    margin-left: 2px;
+    display: inline-flex;
+    padding: 10px;
+    outline: solid 2px #77aebf;
+    height: 20px;
+    background: white;
+    cursor: pointer;
+}
+
+.optAndSvg {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: calc(calc(100% - 20px));
+    background: transparent;
+    padding: 10px;
+}
+
+.optAndSvg .svg-editor-container {
+    height: 100%;
+    width: 60%;
+}
+
+.optAndSvg .svg-editor-container .svg-editor-svg-container {
+    cursor: pointer;
+    background: white;
+    padding: 10px;
+    height: calc(100% - 20px);
+    width: 100%;
+}
+
+.optAndSvg .svg-editor-container .svg-editor-svg-container div {
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.optAndSvg .opt-container {
+    display: flex;
+    height: 100%;
+    width: 36%;
+    flex-direction: column;
+    outline: dashed #00ffe5 1px;
+    overflow-y: auto;
+}
+
+.optAndSvg .opt-container .opt-row {
+    height: max-content;
+    margin: 6px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    align-items: center;
+    font-family: var(--font);
+    text-transform: capitalize;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 1.3px;
+    border-bottom: dashed #ff00f9 1px;
+    padding-bottom: 10px;
+}
+
+.optAndSvg .opt-container .opt-row name {
+    width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.optAndSvg .opt-container .opt-row .item {
+    align-items: center;
+    display: flex;
+    justify-content: right;
+    width: 50%;
+}
+
+.optAndSvg .opt-container .opt-row .item input[type=text],.optAndSvg .opt-container .opt-row .item input[type=number],.optAndSvg .opt-container .opt-row .item input[type=button],.optAndSvg .opt-container .opt-row .item button {
+    max-width: calc(100% - 20px);
+    margin: 0px;
+}
+
+.optAndSvg .opt-container .opt-row name::after {
+    content: ':';
+}
+
+.optAndSvg .opt-container .opt-row .selected-item-shower {
+    max-height: 32px;
+    width: 100%;
+    border-radius: 5px;
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-items: center;
+    white-space: pre;
+    padding: 3px;
+    text-align: center;
+}
+
+label.switch input {
+    display: none;
+}
+
+label.switch input:checked + .slider {
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+    background: #03be7a;
+}
+
+label.switch input:checked + .slider::after {
+    content: 'on';
+    color: white;
+}
+
+label.switch {
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 2px white;
+}
+
+label.switch .slider {
+    height: 32px;
+    width: 50%;
+    margin-top: -1px;
+    background: white;
+    display: inline-flex;
+    transition: 1s;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+label.switch .slider::after {
+    content: 'off';
+    color: black;
+}
+
+label.switch .slider-align {
+    height: 32px;
+    width: 40%;
+    margin-top: -1px;
+    background: #03be7a;
+    display: inline-flex;
+    transition: 1s;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+label.switch .slider-align[align=left]::after {
+    content: 'left';
+}
+
+label.switch .slider-align[align=center]::after {
+    content: 'center';
+}
+
+label.switch .slider-align[align=right]::after {
+    content: 'right';
+}
+
+label.switch .slider-align[align=left] {
+    width: 30%;
+    -webkit-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -o-transform: translateX(0%);
+    transform: translateX(0%);
+}
+
+label.switch .slider-align[align=center] {
+    width: 37%;
+    -webkit-transform: translateX(78%);
+    -ms-transform: translateX(78%);
+    -o-transform: translateX(78%);
+    transform: translateX(78%);
+}
+
+label.switch .slider-align[align=right] {
+    width: 35%;
+    -webkit-transform: translateX(190%);
+    -ms-transform: translateX(190%);
+    -o-transform: translateX(190%);
+    transform: translateX(190%);
+}
+
+label.switch.abs {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+label.switch .slider-hover {
+    height: 32px;
+    width: max-content;
+    margin-top: -1px;
+    display: inline-flex;
+    transition: 1s;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+label.switch .slider-hover[align=left] {
+    left: 4%;
+}
+
+label.switch .slider-hover[align=center] {
+    margin: auto;
+}
+
+label.switch .slider-hover[align=right] {
+    left: auto;
+    right: 4%;
+}
+
+.y-line {
+    height: 100%;
+    width: 2px;
+    background: white;
+    display: inline-flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.finish-editing {
+    position: fixed;
+    z-index: 99999999999999999999999999999999;
+    box-shadow: 0 0 16px white;
+    outline: solid black;
+}
+
+.excel-preview {
+    position: fixed;
+    left: 8px;
+    top: 0px;
+    bottom: 30%;
+    width: 17%;
+    overflow-x: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#row-barcode-number div {
+    display: inline-block;
+    padding: 10px 6px 10px 6px;
+    border-radius: 17px;
+    text-transform: none;
+    background: #007233;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.excel-preview tr:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#row-barcode-number table {
+    max-width: 100%;
+    cursor: pointer;
+    white-space: pre;
+}
+
+.excel-preview td {
+    font-family: sans-serif;
+    padding: 7px 10px 7px 10px;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.excel-preview tr td:nth-child(1) {
+    background: #007233;
+    color: white;
+    font-weight: bold;
+}
+
+.excel-preview tr td:nth-child(2) {
+    background: #C8D4C8;
+    color: black;
+    font-weight: 600;
+}
+
+.tester {
+    position: fixed;
+    top: 99999999999999999999999999999999999999px;
+    left: 99999999999999999999999999999999999999px;
+}
+
+.preview {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #000000bf;
+    z-index: 9999999999999999999999999999999;
+}
+
+.preview div {
+    background: white;
+    padding: 10px;
+}
+
+.next {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.step-preview {
+    position: absolute;
+    height: 80%;
+    width: 20%;
+    right: 50px;
+    top: 10px;
+}
+
+.step-preview g{
+    display: block;
+    height: 90%;
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 10px;
+    overflow-x:  hidden;
+}
+
+.step-preview g div{
+    margin-bottom: 10px;
+    display: inline-flex;
+}
+
+.step-preview g div input{
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px);
+    font-size: 20px;
+    text-align: center;
+}
+
+.step-preview g div span{
+    background: red;
+    color: white;
+    font-family: cursive;
+    cursor: pointer;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.step-preview .add {
+    font-family: cursive;
+    color: white;
+    font-size: 50px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: calc(43%);
+    margin-right: calc(43%);
+    cursor: pointer;
+}
+
+div[step='6'] button {
+    position: absolute;
+    right: 50px;
+    left: 80%;
+    margin: auto;
+    bottom: 10px;
+}
+
+.advertisment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: calc(28% - 20px);
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background: #f7f7f7;
+    color: #ababab;
+    outline: solid 3px #ababab;
+    font-size: 10px;
+    font-family: monospace;
+
+    /*
+    change this get advertisment spcae
+    */
+
+    height: 0px;
+    color: transparent;
+    background: transparent;
+    outline: none;
+}
+.progress-overlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #000000bf;
+    z-index: 9999999999999999999999999999999;
+}
+.progress{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 50%;
+    background: white;
+    font-family: monospace;
+    max-height: 80%;
+    overflow: auto;
+}
+.progress div{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    align-items: center;
+}
+.progress name{
+    width:  45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.progress button{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.progress svg{
+    cursor: pointer;
+}
+.progress .progress-bar{
+    width: calc(100% - 10px);
+    height: 20px;
+    background: #e1e1e1;
+    border-radius: 10px;
+    overflow: visible;
+    justify-content: center;
+}
+.progress .progress-bar .bar{
+    height: 100%;
+    width: 0%;
+    background: lime;
+    transition: 2s;
+    margin: 0px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    font-family: monospace;
+    white-space: nowrap;
+    border-radius: 10px;
+}
+.allow-overlay .cont{
+    width: 500px;
+    height: 250px;
+}
+.allow-overlay .svg{
+    margin: 20px;
+    transform: scale(2.5) rotate(45deg);
+    height: 30px;
+    width: 30px;
+    background: #ffffff30;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+.allow-overlay .svg path{
+     fill: white;
+}
+.allow-overlay{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: #000000bf;
+    z-index: 9999999999999999999999999999999;
+}
+.logo{
+    position: fixed;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    height: 74px;
+    width: 160px;
+    background-image: url('images/ex-bar logo.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+div[step='6'] .logo{
+    position: fixed;
+    top: 28px;
+    left: auto;
+    right: 43px;
+    margin: 0px;
+    height: 74px;
+    width: 160px;
+    background-image: url(images/ex-bar logo.svg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+   
+.excel-whole{
+    position: fixed;
+    top: 10px;
+    left: 58\px;
+    bottom: 10px;
+    right: calc(20% + 70px);
+    background: #e9fff7;
+    overflow: auto;
+    padding: 20px;
+}
+
+.excel-whole .tr {
+    display: flex;
+}
+
+.excel-whole .selector{
+    background: #62ffc687;
+    border: dashed blue 1.5px;
+    position: absolute;
+}
+
+
+.excel-whole .td {
+  border: 1px solid #10c4ff;
+  background: transparent;
+  height: max-content;
+  width: max-content;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: cell;
+  user-select: none;
+}
+
+.excel-whole table td{
+    cursor: cell;
+}
