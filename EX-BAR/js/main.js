@@ -366,6 +366,7 @@ function next(step){
 		}
 		};
 		if (step == 5) {
+			Jua('.nav-bar').hide();
 			var table = Jua(".excel-preview table");
 			for(let row in data.excel.rows[0]){
 				var tr = Jua("<tr>");
